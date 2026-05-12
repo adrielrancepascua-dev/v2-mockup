@@ -2086,7 +2086,7 @@
                 <h2 class="text-lg sm:text-xl font-bold text-white flex items-center mb-4">
                     <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-purple-400"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></svg> Dosage Calculation Practice
                 </h2>
-                <button onclick="generateDosageProblem()" class="mb-4 px-4 py-2 rounded-lg bg-purple-600 text-white font-bold">Start Problem</button>
+                <button onclick="generateDosageProblem()" class="mb-4 px-4 py-2 rounded-lg bg-purple-600 text-slate-900 font-bold">Start Problem</button>
                 <div id="dosage-practice-container" class="min-h-[200px]"></div>
             </section>
         </div> <!-- End content-practice -->
@@ -3356,7 +3356,7 @@
 
             let html = `<div class="space-y-4">
                 <div class="flex gap-2 mb-4">
-                    <button id="ref-btn-vitals" onclick="showReferenceSection('vitals')" class="px-3 py-1 rounded-lg bg-cyan-600 text-white text-sm font-bold">Vital Ranges</button>
+                    <button id="ref-btn-vitals" onclick="showReferenceSection('vitals')" class="px-3 py-1 rounded-lg bg-cyan-600 text-slate-900 text-sm font-bold">Vital Ranges</button>
                     <button id="ref-btn-labs" onclick="showReferenceSection('labs')" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-sm font-bold">Lab Values</button>
                     <button id="ref-btn-drugs" onclick="showReferenceSection('drugs')" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-sm font-bold">Drug Classes</button>
                 </div>
@@ -3375,7 +3375,7 @@
             document.querySelectorAll('[id^="ref-btn-"]').forEach(btn => {
                 btn.classList.remove('bg-cyan-600');
                 btn.classList.add('bg-slate-700');
-                btn.classList.remove('text-white');
+                btn.classList.remove('text-white', 'text-slate-900');
                 btn.classList.add('text-slate-300');
             });
             
@@ -3385,7 +3385,7 @@
                 activeBtn.classList.remove('bg-slate-700');
                 activeBtn.classList.add('bg-cyan-600');
                 activeBtn.classList.remove('text-slate-300');
-                activeBtn.classList.add('text-white');
+                activeBtn.classList.add('text-slate-900');
             }
 
             let html = '';
