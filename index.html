@@ -506,8 +506,8 @@
             'outlok.com': 'outlook.com',
             'hotnail.com': 'hotmail.com'
         };
-        const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
-        const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
+        const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://YOUR-PROJECT.supabase.co';
+        const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
 
         /** Set localStorage nursepath_debug=1 to enable verbose pilot diagnostics in the console. */
         const NP_DEBUG = (function () {
@@ -3356,9 +3356,9 @@
 
             let html = `<div class="space-y-4">
                 <div class="flex gap-2 mb-4">
-                    <button onclick="showReferenceSection('vitals')" class="px-3 py-1 rounded-lg bg-cyan-600 text-white text-sm font-bold">Vital Ranges</button>
-                    <button onclick="showReferenceSection('labs')" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-sm font-bold">Lab Values</button>
-                    <button onclick="showReferenceSection('drugs')" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-sm font-bold">Drug Classes</button>
+                    <button id="ref-btn-vitals" onclick="showReferenceSection('vitals')" class="px-3 py-1 rounded-lg bg-cyan-600 text-white text-sm font-bold">Vital Ranges</button>
+                    <button id="ref-btn-labs" onclick="showReferenceSection('labs')" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-sm font-bold">Lab Values</button>
+                    <button id="ref-btn-drugs" onclick="showReferenceSection('drugs')" class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-sm font-bold">Drug Classes</button>
                 </div>
                 <div id="reference-content"></div>
             </div>`;
@@ -3370,6 +3370,23 @@
         function showReferenceSection(section) {
             const contentDiv = document.getElementById('reference-content');
             if (!contentDiv) return;
+            
+            // Update button states
+            document.querySelectorAll('[id^="ref-btn-"]').forEach(btn => {
+                btn.classList.remove('bg-cyan-600');
+                btn.classList.add('bg-slate-700');
+                btn.classList.remove('text-white');
+                btn.classList.add('text-slate-300');
+            });
+            
+            // Set active button
+            const activeBtn = document.getElementById(`ref-btn-${section}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-700');
+                activeBtn.classList.add('bg-cyan-600');
+                activeBtn.classList.remove('text-slate-300');
+                activeBtn.classList.add('text-white');
+            }
 
             let html = '';
             if (section === 'vitals') {
@@ -3415,8 +3432,8 @@
             { weight: 70, medName: 'Amoxicillin', dosePerKg: 25, unit: 'mg', instruction: 'Calculate total dose', answer: 1750 },
             { weight: 50, medName: 'Gentamicin', dosePerKg: 5, unit: 'mg', instruction: 'Calculate total dose', answer: 250 },
             { weight: 80, medName: 'Ciprofloxacin', dosePerKg: 10, unit: 'mg', instruction: 'Calculate total dose', answer: 800 },
-            { volume: 500, concentration: 5, unit: 'mg/mL', time: 4, instruction: 'Calculate mL/hr for 4-hour infusion', answer: 125 },
-            { volume: 1000, concentration: 2.5, unit: 'mg/mL', time: 8, instruction: 'Calculate mL/hr for 8-hour infusion', answer: 125 }
+            { medName: 'Dobutamine', volume: 500, concentration: 5, unit: 'mg/mL', time: 4, instruction: 'Calculate mL/hr for 4-hour infusion', answer: 125 },
+            { medName: 'Insulin', volume: 1000, concentration: 2.5, unit: 'mg/mL', time: 8, instruction: 'Calculate mL/hr for 8-hour infusion', answer: 125 }
         ];
 
         let currentDosageProblem = null;
