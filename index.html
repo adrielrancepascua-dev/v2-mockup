@@ -1666,13 +1666,22 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // MOCKUP MODE: Verify credentials are placeholders and auto-authenticate
+            if (SUPABASE_URL.includes('YOUR-PROJECT')) {
+                console.warn('🔧 Supabase disabled — mockup mode');
+                // Auto-authenticate with mockup account
+                saveGhostUser('mockup@nursepath.local');
+            }
             initSupabaseAuth();
             initEmergencyReset();
         });
     </script>
 
     <div id="app-shell" style="display: none;">
-    <div class="bg-amber-600 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-amber-800 sticky top-0 z-50 shadow-lg">
+    <div class="bg-red-700 text-white py-3 px-4 text-xs md:text-sm font-black text-center tracking-widest uppercase border-b-2 border-red-900 sticky top-0 z-50 shadow-lg" style="letter-spacing: 0.15em;">
+        ⚠️ V2 MOCKUP — NOT CONNECTED TO PRODUCTION ⚠️
+    </div>
+    <div class="bg-amber-600 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-amber-800 sticky top-12 z-50 shadow-lg" style="margin-top: 0;">
         📚 SIMULATION MODE • Verify with Faculty & Textbooks • Academic Reference Only
     </div>
 
