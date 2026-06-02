@@ -2084,7 +2084,11 @@
                         <option value="Surgical Nursing">Surgical Nursing</option>
                         <option value="Critical Care">Critical Care</option>
                         <option value="Renal Nursing">Renal Nursing</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Psychiatric Nursing">Psychiatric Nursing</option>
+                        <option value="Community Health">Community Health</option>
                     </select>
+                    <span id="practice-bank-count" class="text-xs text-slate-500"></span>
                 </div>
                 <div id="practice-question-container" class="min-h-[300px]"></div>
             </section>
@@ -2095,8 +2099,22 @@
                 <h2 class="text-lg sm:text-xl font-bold text-white flex items-center mb-4">
                     <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-purple-400"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></svg> Dosage Calculation Practice
                 </h2>
-                <button onclick="generateDosageProblem()" class="mb-4 px-4 py-2 rounded-lg bg-purple-600 text-slate-900 font-bold">Start Problem</button>
-                <div id="dosage-practice-container" class="min-h-[200px]"></div>
+                <div class="mb-4 flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+                    <label class="text-sm text-slate-400">Problem Type:</label>
+                    <select id="dosage-type-filter" class="flex-1 p-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-200 text-sm">
+                        <option value="all">Mixed (All Types)</option>
+                        <option value="weight">Weight-Based Dosing</option>
+                        <option value="ratio">D/H × Q (Liquid Dose)</option>
+                        <option value="mlhr">IV Flow Rate (mL/hr)</option>
+                        <option value="gtt">IV Drip Rate (gtt/min)</option>
+                        <option value="tablet">Tablet Count</option>
+                        <option value="mcg">mcg ↔ mg Conversion</option>
+                    </select>
+                    <button onclick="generateDosageProblem()" class="px-4 py-2 rounded-lg bg-purple-600 text-white font-bold whitespace-nowrap">New Problem</button>
+                </div>
+                <div id="dosage-practice-container" class="min-h-[200px]">
+                    <p class="text-slate-400 text-sm text-center py-8">Tap <strong class="text-purple-400">New Problem</strong> to start practicing dosage calculations.</p>
+                </div>
             </section>
         </div> <!-- End content-practice -->
 
@@ -3050,6 +3068,258 @@
                 rationale: "EPO works by stimulating RBC production, increasing hemoglobin. The target is Hb 10-12 g/dL for dialysis clients. The improvement shown (7.0 to 10.5) indicates therapeutic effect.",
                 system: "Renal Nursing",
                 difficulty: "medium"
+            },
+            {
+                id: 13,
+                stem: "A client with acute ischemic stroke arrives within 2 hours of symptom onset. CT shows no hemorrhage. What is the priority nursing consideration before thrombolytic therapy?",
+                choices: [
+                    "Obtain informed consent and confirm BP is within protocol limits (<185/110 mmHg)",
+                    "Start oral anticoagulation immediately",
+                    "Place client in Trendelenburg position",
+                    "Restrict all oral intake for 24 hours"
+                ],
+                correct: 0,
+                rationale: "Thrombolytics (e.g., alteplase) require strict BP control, hemorrhage exclusion on CT, and consent. BP must be <185/110 mmHg before and during infusion per stroke protocols.",
+                system: "Neurology",
+                difficulty: "hard"
+            },
+            {
+                id: 14,
+                stem: "A client with major depression says, 'I'm worthless and everyone would be better off without me.' What is the best therapeutic response?",
+                choices: [
+                    "Don't say things like that — you have so much to live for",
+                    "Tell me more about what makes you feel that way. Have you thought about harming yourself?",
+                    "Let's change the subject to something more positive",
+                    "You should talk to your doctor about medication adjustment"
+                ],
+                correct: 1,
+                rationale: "Active listening with direct, non-judgmental suicide risk assessment is priority. Avoid minimizing feelings or changing the subject when suicidal ideation is expressed.",
+                system: "Psychiatric Nursing",
+                difficulty: "medium"
+            },
+            {
+                id: 15,
+                stem: "During a community health visit, a mother asks why her 9-month-old needs measles vaccine when the child looks healthy. What is the best nursing response?",
+                choices: [
+                    "Vaccines are only for sick children",
+                    "Immunization protects your child before exposure to the disease, when immunity is most needed",
+                    "You can wait until the child starts school",
+                    "Natural immunity from getting sick is always better"
+                ],
+                correct: 1,
+                rationale: "Community health nursing emphasizes preventive care. Vaccines build immunity before disease exposure — a core EPI (Expanded Program on Immunization) principle in the Philippines.",
+                system: "Community Health",
+                difficulty: "easy"
+            },
+            {
+                id: 16,
+                stem: "A client with heart failure has crackles bilaterally, 3+ pitting edema, and weight gain of 3 kg in 2 days. Which medication class is most likely prescribed?",
+                choices: [
+                    "Loop diuretic (e.g., Furosemide)",
+                    "Beta-2 agonist (e.g., Salbutamol)",
+                    "Proton pump inhibitor (e.g., Omeprazole)",
+                    "Antihistamine (e.g., Cetirizine)"
+                ],
+                correct: 0,
+                rationale: "Fluid overload signs (crackles, edema, rapid weight gain) in HF indicate need for diuresis. Loop diuretics like furosemide are first-line for acute decompensated HF with volume overload.",
+                system: "Cardiovascular",
+                difficulty: "medium"
+            },
+            {
+                id: 17,
+                stem: "A client with asthma uses a salbutamol MDI. After inhalation, what should the nurse instruct the client to do?",
+                choices: [
+                    "Rinse mouth and spit to prevent oral candidiasis",
+                    "Hold breath for 10 seconds, then wait 30–60 seconds before the next puff",
+                    "Take a deep breath and exhale forcefully before each puff",
+                    "Use the inhaler only when wheezing is audible"
+                ],
+                correct: 1,
+                rationale: "For SABA MDIs: shake, exhale, inhale slowly while actuating, hold breath 10 seconds for alveolar deposition, wait 30–60 seconds between puffs. Rinsing is for ICS, not SABA.",
+                system: "Respiratory",
+                difficulty: "medium"
+            },
+            {
+                id: 18,
+                stem: "A client on digoxin reports nausea, visual yellow halos, and a heart rate of 52 bpm. What is the priority action?",
+                choices: [
+                    "Administer the next scheduled digoxin dose",
+                    "Hold digoxin, check digoxin level and potassium, notify physician",
+                    "Increase fluid intake and recheck in 4 hours",
+                    "Document as expected side effect and continue monitoring"
+                ],
+                correct: 1,
+                rationale: "N/V, visual disturbances (xanthopsia), and bradycardia are classic digoxin toxicity signs. Hold the drug, check digoxin level and K+ (hypokalemia increases toxicity), notify MD.",
+                system: "Pharmacology",
+                difficulty: "hard"
+            },
+            {
+                id: 19,
+                stem: "A postpartum client (2 hours after delivery) soaks 2 perineal pads in 30 minutes, has a boggy uterus, and BP 90/60. What is the priority nursing action?",
+                choices: [
+                    "Encourage breastfeeding to stimulate oxytocin",
+                    "Massage the fundus and administer oxytocin per protocol, notify physician",
+                    "Place client in supine position with legs elevated",
+                    "Start IV fluids and wait for next assessment"
+                ],
+                correct: 1,
+                rationale: "Signs of postpartum hemorrhage: excessive lochia, boggy uterus, hypotension. Priority is uterine massage + uterotonic (oxytocin) per protocol and immediate physician notification.",
+                system: "Maternal Health",
+                difficulty: "hard"
+            },
+            {
+                id: 20,
+                stem: "A 2-year-old child has sunken fontanelle, dry mucous membranes, and decreased urine output. What type of dehydration is most likely?",
+                choices: [
+                    "Isotonic dehydration (most common in gastroenteritis)",
+                    "Hypertonic dehydration only",
+                    "Hypotonic dehydration only",
+                    "No dehydration — fontanelle changes are normal"
+                ],
+                correct: 0,
+                rationale: "Sunken fontanelle, dry mucosa, and oliguria indicate dehydration. Isotonic (Na 130–150) is most common in pediatric gastroenteritis. Assess severity using WHO/CDC dehydration criteria.",
+                system: "Pediatric Nursing",
+                difficulty: "medium"
+            },
+            {
+                id: 21,
+                stem: "A client has Na+ 128 mEq/L, confusion, and headache. Which intervention is appropriate?",
+                choices: [
+                    "Administer 3% hypertonic saline bolus rapidly",
+                    "Restrict free water intake and monitor neurologic status closely",
+                    "Encourage increased oral fluid intake",
+                    "Administer IV normal saline at 250 mL/hr"
+                ],
+                correct: 1,
+                rationale: "Hyponatremia (Na <135) with neuro symptoms requires cautious correction. Restrict free water, monitor neuro status. Rapid correction risks osmotic demyelination syndrome.",
+                system: "Fluid & Electrolyte",
+                difficulty: "hard"
+            },
+            {
+                id: 22,
+                stem: "A diabetic client on NPO for surgery has a blood glucose of 58 mg/dL, diaphoresis, and tremors. What is the priority action?",
+                choices: [
+                    "Administer regular insulin 4 units subcutaneously",
+                    "Give 15 g fast-acting carbohydrate (e.g., glucose gel/juice) and recheck in 15 minutes",
+                    "Start D5W infusion at 125 mL/hr",
+                    "Document and continue NPO status"
+                ],
+                correct: 1,
+                rationale: "Classic hypoglycemia (<70 mg/dL) with autonomic symptoms. Rule of 15: give 15 g fast carbs, recheck in 15 min, repeat if still low. Do NOT give insulin.",
+                system: "Endocrine",
+                difficulty: "easy"
+            },
+            {
+                id: 23,
+                stem: "A post-op client on bed rest after hip replacement. Which prophylactic measure prevents deep vein thrombosis (DVT)?",
+                choices: [
+                    "Encourage early ambulation and SCDs (Sequential Compression Devices)",
+                    "Place pillow under knees for comfort",
+                    "Restrict all leg movement for 48 hours",
+                    "Massage calf muscles every 4 hours"
+                ],
+                correct: 0,
+                rationale: "DVT prophylaxis post-orthopedic surgery: early ambulation, SCDs, pharmacologic prophylaxis per order. Avoid knee gatch/pillow under knees (impairs circulation). Never massage calves (risk of embolism).",
+                system: "Surgical Nursing",
+                difficulty: "medium"
+            },
+            {
+                id: 24,
+                stem: "A client with sepsis has temp 39.5°C, HR 118, RR 28, WBC 18,000, and lactate 3.2 mmol/L. What is the priority nursing action?",
+                choices: [
+                    "Obtain blood cultures then administer broad-spectrum antibiotics within 1 hour per sepsis bundle",
+                    "Apply cooling blanket and recheck temperature in 4 hours",
+                    "Encourage oral fluids and rest",
+                    "Prepare for discharge with oral antibiotics"
+                ],
+                correct: 0,
+                rationale: "Sepsis bundle: blood cultures BEFORE antibiotics (if no delay), broad-spectrum ABX within 1 hour, IV fluids, lactate monitoring. Time-critical — each hour delay increases mortality.",
+                system: "Critical Care",
+                difficulty: "hard"
+            },
+            {
+                id: 25,
+                stem: "A hemodialysis client complains of muscle cramps and hypotension during treatment. What is the most likely cause?",
+                choices: [
+                    "Excessive ultrafiltration causing hypovolemia",
+                    "Allergic reaction to dialyzer",
+                    "Hyperkalemia",
+                    "Air embolism"
+                ],
+                correct: 0,
+                rationale: "Intradialytic hypotension and muscle cramps commonly result from aggressive fluid removal (ultrafiltration). Reduce UF rate, assess dry weight, consider sodium modeling per protocol.",
+                system: "Renal Nursing",
+                difficulty: "medium"
+            },
+            {
+                id: 26,
+                stem: "A client taking phenelzine (MAOI) ate aged cheese and now has severe headache, neck stiffness, and BP 210/120. What is this reaction?",
+                choices: [
+                    "Hypertensive crisis from tyramine interaction — medical emergency",
+                    "Expected side effect of MAOIs — continue medication",
+                    "Migraine headache — administer sumatriptan",
+                    "Anaphylactic reaction — give epinephrine"
+                ],
+                correct: 0,
+                rationale: "MAOIs + tyramine-rich foods (aged cheese, wine, cured meats) cause hypertensive crisis. This is an emergency — hold MAOI, notify MD, treat severe hypertension per protocol.",
+                system: "Pharmacology",
+                difficulty: "hard"
+            },
+            {
+                id: 27,
+                stem: "A client with suspected MI is prescribed MONA protocol. Which component should the nurse question if ordered for a client with aspirin allergy?",
+                choices: [
+                    "Morphine for pain",
+                    "Oxygen if SpO2 <94%",
+                    "Nitroglycerin sublingual",
+                    "Aspirin 325 mg chewable"
+                ],
+                correct: 3,
+                rationale: "MONA: Morphine, Oxygen, Nitroglycerin, Aspirin. Aspirin is contraindicated with aspirin allergy. Clopidogrel may be substituted per protocol. Always verify allergies before administration.",
+                system: "Cardiovascular",
+                difficulty: "medium"
+            },
+            {
+                id: 28,
+                stem: "A client has sudden dyspnea, chest pain worse with inspiration, tachycardia, and SpO2 88%. D-dimer is elevated. What condition is suspected?",
+                choices: [
+                    "Pulmonary embolism",
+                    "Community-acquired pneumonia",
+                    "Pneumothorax only",
+                    "Acute bronchitis"
+                ],
+                correct: 0,
+                rationale: "Sudden dyspnea, pleuritic chest pain, tachycardia, hypoxemia, and elevated D-dimer suggest PE. Priority: oxygen, anticoagulation per order, prepare for CT angiography.",
+                system: "Respiratory",
+                difficulty: "hard"
+            },
+            {
+                id: 29,
+                stem: "At a rural health unit, a nurse is implementing TB-DOTS. What is the nurse's primary role?",
+                choices: [
+                    "Directly observe the client swallow each dose of anti-TB medication",
+                    "Prescribe the anti-TB regimen independently",
+                    "Hospitalize all TB clients for 6 months",
+                    "Discontinue treatment when symptoms improve"
+                ],
+                correct: 0,
+                rationale: "DOTS (Directly Observed Treatment, Short-course) is the WHO/DOH strategy for TB control. The nurse directly observes ingestion to ensure adherence and prevent MDR-TB.",
+                system: "Community Health",
+                difficulty: "easy"
+            },
+            {
+                id: 30,
+                stem: "A client with bipolar disorder on lithium reports increased thirst, polyuria, and fine hand tremor. What should the nurse monitor?",
+                choices: [
+                    "Lithium level, renal function, and thyroid function",
+                    "Blood glucose only",
+                    "Liver enzymes only",
+                    "No monitoring needed — these are expected permanently"
+                ],
+                correct: 0,
+                rationale: "Lithium toxicity signs: thirst, polyuria, tremor, confusion. Monitor lithium level (therapeutic 0.6–1.2 mEq/L), renal function (lithium is renally cleared), and thyroid (lithium can cause hypothyroidism).",
+                system: "Psychiatric Nursing",
+                difficulty: "medium"
             }
         ];
 
@@ -3061,8 +3331,33 @@
             return array;
         }
 
+        function getPracticeQuestionPool() {
+            const systemFilter = getPracticeSystemFilter();
+            return systemFilter === 'all'
+                ? [...QUESTION_BANK]
+                : QUESTION_BANK.filter(q => q.system === systemFilter);
+        }
+
+        function updatePracticeBankCount() {
+            const countEl = document.getElementById('practice-bank-count');
+            if (countEl) {
+                const pool = getPracticeQuestionPool();
+                countEl.textContent = `${pool.length} question${pool.length !== 1 ? 's' : ''} available`;
+            }
+        }
+
         function initPracticeSession() {
-            const shuffled = shuffleArray([...QUESTION_BANK]);
+            const pool = getPracticeQuestionPool();
+            updatePracticeBankCount();
+            if (pool.length === 0) {
+                const container = document.getElementById('practice-question-container');
+                if (container) {
+                    container.innerHTML = '<p class="text-center text-slate-400 py-8">No questions for this system yet. Try "All Systems".</p>';
+                }
+                currentPracticeSession = null;
+                return;
+            }
+            const shuffled = shuffleArray(pool);
             currentPracticeSession = {
                 questions: shuffled,
                 currentIndex: 0,
@@ -3072,6 +3367,8 @@
             };
             practiceQuestionIndex = 0;
             practiceAnswered = false;
+            practiceScore = 0;
+            practiceTotal = 0;
             renderPracticeQuestion();
         }
 
@@ -3081,23 +3378,17 @@
 
         function renderPracticeQuestion() {
             if (!currentPracticeSession) return;
-            
-            const question = currentPracticeSession.questions[currentPracticeSession.currentIndex];
-            const container = document.getElementById('practice-question-container');
-            if (!container) return;
 
-            const systemFilter = getPracticeSystemFilter();
-            const filteredQuestions = systemFilter === 'all' 
-                ? currentPracticeSession.questions 
-                : currentPracticeSession.questions.filter(q => q.system === systemFilter);
-            
-            if (filteredQuestions.length === 0) {
-                container.innerHTML = '<p class="text-center text-slate-400">No questions for this system.</p>';
+            const questions = currentPracticeSession.questions;
+            const container = document.getElementById('practice-question-container');
+            if (!container || questions.length === 0) return;
+
+            const currentQ = questions[currentPracticeSession.currentIndex];
+            if (!currentQ) {
+                showPracticeSummary();
                 return;
             }
-
-            const currentQ = filteredQuestions[currentPracticeSession.currentIndex] || filteredQuestions[0];
-            const progress = `${currentPracticeSession.currentIndex + 1} / ${filteredQuestions.length}`;
+            const progress = `${currentPracticeSession.currentIndex + 1} / ${questions.length}`;
             
             let html = `
                 <div class="space-y-4">
@@ -3153,7 +3444,7 @@
                     </div>
 
                     <button onclick="nextPracticeQuestion()" class="w-full py-3 rounded-lg font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white transition-all">
-                        ${currentPracticeSession.currentIndex < filteredQuestions.length - 1 ? 'Next Question' : 'View Summary'}
+                        ${currentPracticeSession.currentIndex < questions.length - 1 ? 'Next Question' : 'View Summary'}
                     </button>`;
             }
 
@@ -3178,13 +3469,9 @@
 
         function nextPracticeQuestion() {
             if (!currentPracticeSession) return;
-            
-            const systemFilter = getPracticeSystemFilter();
-            const filteredQuestions = systemFilter === 'all' 
-                ? currentPracticeSession.questions 
-                : currentPracticeSession.questions.filter(q => q.system === systemFilter);
-            
-            if (currentPracticeSession.currentIndex < filteredQuestions.length - 1) {
+
+            const questions = currentPracticeSession.questions;
+            if (currentPracticeSession.currentIndex < questions.length - 1) {
                 currentPracticeSession.currentIndex += 1;
                 currentPracticeSession.answered = false;
                 currentPracticeSession.userAnswer = null;
@@ -3349,13 +3636,46 @@
                 { test: 'Calcium', normal: '8.5-10.5 mg/dL', abnormal: 'Low: hypocalcemia | High: hypercalcemia' }
             ],
             drugClasses: [
-                { class: 'ACE Inhibitors', examples: 'Lisinopril, Enalapril', mechanism: 'Blocks angiotensin II → lowers BP', nursing: 'Monitor K+, watch for persistent cough' },
-                { class: 'Beta Blockers', examples: 'Metoprolol, Atenolol', mechanism: 'Decreases HR & contractility', nursing: 'Do NOT stop abruptly (rebound HTN); monitor HR' },
-                { class: 'Statins', examples: 'Atorvastatin, Simvastatin', mechanism: 'Lowers cholesterol via HMG-CoA inhibition', nursing: 'Monitor liver function; muscle pain (statin myopathy)' },
-                { class: 'Diuretics', examples: 'Furosemide (Loop), HCTZ (Thiazide)', mechanism: 'Increases urine output → lowers BP & edema', nursing: 'Monitor electrolytes, hydration status' },
-                { class: 'Antibiotics (Penicillin)', examples: 'Amoxicillin, Penicillin V', mechanism: 'Beta-lactam: inhibits bacterial cell wall', nursing: 'Allergy risk; check for cross-reactivity' },
-                { class: 'Anticoagulants', examples: 'Warfarin, Heparin', mechanism: 'Inhibits clotting cascade', nursing: 'Monitor INR/PTT; watch for bleeding' },
-                { class: 'Insulin', examples: 'Regular, NPH, Glargine', mechanism: 'Promotes glucose uptake', nursing: 'Rotate injection sites; hypoglycemia risk' }
+                { class: 'ACE Inhibitors', examples: 'Lisinopril, Enalapril, Captopril', mechanism: 'Blocks conversion of angiotensin I → II → vasodilation, ↓ aldosterone', nursing: 'Monitor K+ (hyperkalemia risk), BP, BUN/Cr; watch for dry persistent cough; contraindicated in pregnancy' },
+                { class: 'ARBs (Angiotensin II Receptor Blockers)', examples: 'Losartan, Valsartan, Irbesartan', mechanism: 'Blocks angiotensin II at AT1 receptor → vasodilation', nursing: 'Alternative when ACE-I causes cough; monitor K+, BP, renal function; teratogenic' },
+                { class: 'Beta Blockers', examples: 'Metoprolol, Atenolol, Propranolol', mechanism: 'Blocks β-adrenergic receptors → ↓ HR, ↓ contractility, ↓ BP', nursing: 'Do NOT stop abruptly (rebound tachycardia/HTN); monitor HR/BP; mask hypoglycemia signs; contraindicated in severe asthma' },
+                { class: 'Calcium Channel Blockers', examples: 'Amlodipine, Nifedipine, Diltiazem, Verapamil', mechanism: 'Blocks Ca²⁺ channels → vasodilation, ↓ cardiac contractility', nursing: 'Monitor BP, HR (verapamil/diltiazem); peripheral edema common with dihydropyridines; avoid grapefruit juice' },
+                { class: 'Loop Diuretics', examples: 'Furosemide (Lasix), Bumetanide', mechanism: 'Inhibits Na/K/2Cl cotransporter in loop of Henle → profound diuresis', nursing: 'Monitor K+, Na+, Mg²⁺ (hypokalemia), BP, I&O, daily weight; ototoxicity at high doses; give in AM' },
+                { class: 'Thiazide Diuretics', examples: 'Hydrochlorothiazide (HCTZ), Chlorthalidone', mechanism: 'Inhibits Na/Cl reabsorption in distal tubule → moderate diuresis', nursing: 'Monitor electrolytes (hypokalemia, hyponatremia), glucose (may increase), uric acid; photosensitivity' },
+                { class: 'Statins (HMG-CoA Reductase Inhibitors)', examples: 'Atorvastatin, Simvastatin, Rosuvastatin', mechanism: 'Inhibits cholesterol synthesis in liver → ↓ LDL', nursing: 'Monitor LFTs, CK (myopathy/rhabdomyolysis); give in evening; avoid grapefruit; teach muscle pain reporting' },
+                { class: 'Anticoagulants — Warfarin', examples: 'Warfarin (Coumadin)', mechanism: 'Inhibits vitamin K-dependent clotting factors (II, VII, IX, X)', nursing: 'Monitor INR (goal 2–3); many drug/food interactions; vitamin K reverses; bleeding precautions' },
+                { class: 'Anticoagulants — Heparin/LMWH', examples: 'Heparin, Enoxaparin (Clexane)', mechanism: 'Potentiates antithrombin III → inhibits thrombin and factor Xa', nursing: 'Monitor aPTT (heparin) or anti-Xa (LMWH); HIT risk; protamine sulfate is antidote for heparin' },
+                { class: 'Antiplatelets', examples: 'Aspirin, Clopidogrel (Plavix), Ticagrelor', mechanism: 'Inhibits platelet aggregation via COX-1 or P2Y12 receptor', nursing: 'Bleeding precautions; aspirin: take with food; clopidogrel: report bruising, TTP signs' },
+                { class: 'Insulins', examples: 'Regular (Humulin R), NPH, Glargine (Lantus), Lispro (Humalog)', mechanism: 'Facilitates glucose uptake into cells; suppresses hepatic glucose output', nursing: 'Rotate injection sites; hypoglycemia management (Rule of 15); onset/peak/duration varies by type; store unopened in fridge' },
+                { class: 'Oral Antidiabetics — Biguanides', examples: 'Metformin (Glucophage)', mechanism: 'Decreases hepatic glucose production; improves insulin sensitivity', nursing: 'Hold before contrast dye procedures; GI upset common; risk of lactic acidosis (rare); take with meals' },
+                { class: 'Oral Antidiabetics — Sulfonylureas', examples: 'Glipizide, Glyburide, Gliclazide', mechanism: 'Stimulates pancreatic β-cell insulin release', nursing: 'Hypoglycemia risk (especially glyburide); take 30 min before meals; weight gain possible' },
+                { class: 'Opioid Analgesics', examples: 'Morphine, Tramadol, Codeine, Fentanyl', mechanism: 'Agonist at μ-opioid receptors → analgesia, sedation, respiratory depression', nursing: 'Monitor RR, sedation level, bowel function; naloxone (Narcan) is antidote; assess pain before giving; CNS depression risk' },
+                { class: 'NSAIDs', examples: 'Ibuprofen (Advil), Naproxen, Mefenamic acid (Ponstan)', mechanism: 'Inhibits COX enzymes → ↓ prostaglandins → analgesia, anti-inflammatory, antipyretic', nursing: 'Take with food; GI bleed/ulcer risk; avoid in renal impairment, heart failure; monitor for edema; many drug interactions' },
+                { class: 'Antibiotics — Penicillins', examples: 'Amoxicillin, Ampicillin, Penicillin G', mechanism: 'Beta-lactam: inhibits bacterial cell wall synthesis (bactericidal)', nursing: 'Allergy assessment mandatory; cross-reactivity with cephalosporins possible; take on empty stomach (some); anaphylaxis risk' },
+                { class: 'Antibiotics — Cephalosporins', examples: 'Ceftriaxone (Rocephin), Cefalexin (Keflex), Cefuroxime', mechanism: 'Beta-lactam: inhibits cell wall synthesis; broader spectrum than penicillins', nursing: 'Cross-allergy with penicillin (~1–10%); ceftriaxone: never mix with calcium-containing IV fluids; monitor for C. diff' },
+                { class: 'Antibiotics — Fluoroquinolones', examples: 'Ciprofloxacin, Levofloxacin, Moxifloxacin', mechanism: 'Inhibits DNA gyrase/topoisomerase IV → prevents DNA replication', nursing: 'Tendon rupture risk (especially elderly + steroids); QT prolongation; avoid antacids (↓ absorption); photosensitivity' },
+                { class: 'Antibiotics — Macrolides', examples: 'Azithromycin (Zithromax), Erythromycin, Clarithromycin', mechanism: 'Inhibits bacterial 50S ribosomal subunit → blocks protein synthesis', nursing: 'GI upset common; QT prolongation (especially erythromycin); many CYP450 interactions; take azithromycin 1 hr before or 2 hr after food' },
+                { class: 'Antibiotics — Aminoglycosides', examples: 'Gentamicin, Amikacin, Streptomycin', mechanism: 'Inhibits 30S ribosomal subunit → misreads mRNA (bactericidal)', nursing: 'Narrow therapeutic index — monitor peak/trough levels; nephrotoxicity and ototoxicity; single daily dosing preferred' },
+                { class: 'Proton Pump Inhibitors (PPIs)', examples: 'Omeprazole (Omepron), Pantoprazole, Esomeprazole', mechanism: 'Irreversibly blocks H+/K+-ATPase (proton pump) → ↓ gastric acid', nursing: 'Take before meals (30 min); long-term use: monitor Mg²⁺, B12; ↑ C. diff and fracture risk; do not crush delayed-release caps' },
+                { class: 'H2 Receptor Blockers', examples: 'Ranitidine (Zantac)*, Famotidine (Pepcid), Cimetidine', mechanism: 'Blocks histamine H2 receptors on parietal cells → ↓ acid secretion', nursing: 'Fewer drug interactions than cimetidine; take at bedtime for nocturnal acid; *ranitidine withdrawn in many markets' },
+                { class: 'Antiemetics — 5-HT3 Antagonists', examples: 'Ondansetron (Zofran), Granisetron, Palonosetron', mechanism: 'Blocks serotonin 5-HT3 receptors in CTZ and GI tract', nursing: 'First-line for chemo-induced N/V; monitor for QT prolongation; constipation common; ODT form available' },
+                { class: 'Antiemetics — Dopamine Antagonists', examples: 'Metoclopramide (Reglan), Prochlorperazine (Compazine)', mechanism: 'Blocks D2 receptors in CTZ; metoclopramide also prokinetic', nursing: 'Extrapyramidal symptoms (EPS) risk especially young adults; tardive dyskinesia with prolonged use; give 30 min before meals' },
+                { class: 'First-Generation Antihistamines', examples: 'Diphenhydramine (Benadryl), Chlorpheniramine (Chlor-Trimeton)', mechanism: 'Blocks H1 receptors centrally and peripherally; crosses BBB → sedation', nursing: 'Sedation, anticholinergic effects (dry mouth, urinary retention); avoid in elderly (Beers criteria); not for chronic insomnia' },
+                { class: 'Second-Generation Antihistamines', examples: 'Cetirizine (Allerkid), Loratadine (Claritin), Fexofenadine (Allegra)', mechanism: 'Selective H1 blockade; minimal BBB penetration → less sedation', nursing: 'Once-daily dosing; cetirizine may cause mild sedation; take fexofenadine with water, not fruit juice' },
+                { class: 'Bronchodilators — SABA', examples: 'Salbutamol (Ventolin), Terbutaline (Bricanyl)', mechanism: 'Short-acting β2 agonist → bronchial smooth muscle relaxation', nursing: 'Rescue inhaler for acute bronchospasm; shake MDI, spacer for children; tremor/tachycardia side effects; teach proper technique' },
+                { class: 'Bronchodilators — LABA/ICS Combos', examples: 'Salmeterol/Fluticasone (Seretide), Formoterol/Budesonide (Symbicort)', mechanism: 'LABA: long β2 agonism; ICS: inhaled corticosteroid anti-inflammatory', nursing: 'Controller therapy — NOT for acute rescue; rinse mouth after ICS (oral candidiasis); never use LABA alone in asthma' },
+                { class: 'Corticosteroids (Systemic)', examples: 'Prednisone, Dexamethasone, Hydrocortisone', mechanism: 'Binds glucocorticoid receptors → anti-inflammatory, immunosuppressive', nursing: 'Taper dose — never stop abruptly; monitor glucose, BP, mood, infection signs; give with food; bone density with long-term use' },
+                { class: 'Benzodiazepines', examples: 'Diazepam (Valium), Lorazepam (Ativan), Midazolam (Dormicum)', mechanism: 'Enhances GABA-A receptor activity → CNS depression, anxiolysis, sedation', nursing: 'Respiratory depression risk (especially with opioids); fall risk in elderly; flumazenil is antidote; dependence with long-term use' },
+                { class: 'SSRIs (Antidepressants)', examples: 'Fluoxetine (Prozac), Sertraline (Zoloft), Escitalopram (Lexapro)', mechanism: 'Selectively inhibits serotonin reuptake → ↑ synaptic serotonin', nursing: 'Onset 2–4 weeks; serotonin syndrome risk (with MAOIs, triptans); monitor for suicidal ideation in young adults; do not stop abruptly' },
+                { class: 'Antipsychotics — Typical', examples: 'Haloperidol (Haldol), Chlorpromazine (Largactil)', mechanism: 'Blocks D2 dopamine receptors → ↓ positive psychotic symptoms', nursing: 'Extrapyramidal symptoms (EPS), tardive dyskinesia, neuroleptic malignant syndrome (NMS); monitor QT interval' },
+                { class: 'Antipsychotics — Atypical', examples: 'Risperidone (Risperdal), Olanzapine (Zyprexa), Quetiapine (Seroquel)', mechanism: 'Blocks D2 and 5-HT2A receptors → broader symptom coverage, fewer EPS', nursing: 'Metabolic syndrome risk (weight gain, hyperglycemia, dyslipidemia); agranulocytosis with clozapine; monitor metabolic panel' },
+                { class: 'Mood Stabilizers', examples: 'Lithium, Valproic acid (Depakene), Carbamazepine (Tegretol)', mechanism: 'Lithium: alters Na+ transport; Valproate/Carbamazepine: ↑ GABA, blocks Na+ channels', nursing: 'Lithium: narrow index, monitor level (0.6–1.2), renal/thyroid; Valproate: hepatotoxicity, teratogenic; Carbamazepine: Stevens-Johnson risk' },
+                { class: 'Thyroid Hormones', examples: 'Levothyroxine (Synthroid), Liothyronine (Cytomel)', mechanism: 'Synthetic T4/T3 replaces deficient thyroid hormone', nursing: 'Take on empty stomach (30–60 min before breakfast); do not switch brands; monitor TSH; signs of hypo/hyperthyroidism' },
+                { class: 'Antifungals — Azoles', examples: 'Fluconazole (Diflucan), Ketoconazole, Clotrimazole (topical)', mechanism: 'Inhibits fungal cytochrome P450 → ↓ ergosterol synthesis in cell membrane', nursing: 'Many CYP450 interactions (fluconazole); hepatotoxicity; IV fluconazole for systemic; topical for local infections' },
+                { class: 'Antivirals', examples: 'Oseltamivir (Tamiflu), Acyclovir (Zovirax), Remdesivir', mechanism: 'Inhibits viral replication enzymes (neuraminidase, DNA polymerase, RNA polymerase)', nursing: 'Start oseltamivir within 48 hr of flu symptoms; acyclovir: hydrate well (crystalluria risk); monitor renal function' },
+                { class: 'Anticonvulsants', examples: 'Phenytoin (Dilantin), Carbamazepine, Levetiracetam (Keppra), Valproate', mechanism: 'Varies: Na+ channel blockade, ↑ GABA, or modulates calcium channels', nursing: 'Phenytoin: monitor free level (10–20 mcg/mL), gingival hyperplasia; do not stop abruptly (status epilepticus risk); teratogenic' },
+                { class: 'Inotropes/Vasopressors', examples: 'Dopamine, Dobutamine, Norepinephrine (Levophed)', mechanism: 'Dopamine: dose-dependent (renal → cardiac → vasopressor); Dobutamine: β1 agonist', nursing: 'Central line preferred; extravasation causes tissue necrosis; continuous BP/ECG monitoring; titrate to effect' },
+                { class: 'Electrolyte Replacements', examples: 'KCl (Kalium), MgSO4, Calcium gluconate, NaCl 3%', mechanism: 'Replaces or corrects serum electrolyte deficits', nursing: 'NEVER give KCl IV push (cardiac arrest); max 10 mEq/hr peripheral IV; monitor ECG with K+/Ca²⁺; MgSO4: check deep tendon reflexes' }
             ]
         };
 
@@ -3420,95 +3740,298 @@
                 });
                 html += `</div>`;
             } else if (section === 'drugs') {
-                html = `<div class="space-y-2">`;
-                CLINICAL_REFERENCES.drugClasses.forEach(d => {
+                html = `<input type="search" id="drug-class-search" placeholder="Search drug class, example, or mechanism..." oninput="filterDrugClasses(this.value)" class="w-full p-2 mb-3 bg-slate-900 border border-slate-700 rounded-lg text-slate-200 text-sm">`;
+                html += `<div id="drug-class-list" class="space-y-2 max-h-[480px] overflow-y-auto">`;
+                CLINICAL_REFERENCES.drugClasses.forEach((d, idx) => {
                     html += `
-                        <div class="p-3 bg-slate-800/50 rounded-lg border border-emerald-500/30">
+                        <div class="drug-class-card p-3 bg-slate-800/50 rounded-lg border border-emerald-500/30" data-search="${(d.class + ' ' + d.examples + ' ' + d.mechanism).toLowerCase()}">
                             <p class="font-bold text-emerald-400">${d.class}</p>
                             <p class="text-xs text-slate-300"><strong>Examples:</strong> ${d.examples}</p>
                             <p class="text-xs text-slate-300"><strong>Mechanism:</strong> ${d.mechanism}</p>
                             <p class="text-xs text-amber-300"><strong>Key Nursing:</strong> ${d.nursing}</p>
                         </div>`;
                 });
-                html += `</div>`;
+                html += `<p id="drug-class-empty" class="hidden text-center text-slate-500 text-sm py-4">No drug classes match your search.</p></div>`;
             }
 
             contentDiv.innerHTML = html;
         }
 
-        // ============= PHASE 5: DOSAGE CALCULATION PRACTICE =============
-        const DOSAGE_PROBLEMS = [
-            { weight: 70, medName: 'Amoxicillin', dosePerKg: 25, unit: 'mg', instruction: 'Calculate total dose', answer: 1750 },
-            { weight: 50, medName: 'Gentamicin', dosePerKg: 5, unit: 'mg', instruction: 'Calculate total dose', answer: 250 },
-            { weight: 80, medName: 'Ciprofloxacin', dosePerKg: 10, unit: 'mg', instruction: 'Calculate total dose', answer: 800 },
-            { medName: 'Dobutamine', volume: 500, concentration: 5, unit: 'mg/mL', time: 4, instruction: 'Calculate mL/hr for 4-hour infusion', answer: 125 },
-            { medName: 'Insulin', volume: 1000, concentration: 2.5, unit: 'mg/mL', time: 8, instruction: 'Calculate mL/hr for 8-hour infusion', answer: 125 }
-        ];
+        function filterDrugClasses(query) {
+            const cards = document.querySelectorAll('.drug-class-card');
+            const emptyMsg = document.getElementById('drug-class-empty');
+            const q = (query || '').toLowerCase().trim();
+            let visible = 0;
+            cards.forEach(card => {
+                const match = !q || (card.dataset.search || '').includes(q);
+                card.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+            if (emptyMsg) emptyMsg.classList.toggle('hidden', visible > 0);
+        }
 
+        // ============= PHASE 5: DOSAGE CALCULATION PRACTICE =============
         let currentDosageProblem = null;
+        let dosageStreak = 0;
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function getDosageTypeFilter() {
+            return document.getElementById('dosage-type-filter')?.value || 'all';
+        }
+
+        function buildWeightProblem() {
+            const meds = [
+                { name: 'Amoxicillin', unit: 'mg', doseRange: [20, 30] },
+                { name: 'Paracetamol', unit: 'mg', doseRange: [10, 15] },
+                { name: 'Gentamicin', unit: 'mg', doseRange: [4, 7] },
+                { name: 'Ceftriaxone', unit: 'mg', doseRange: [50, 75] },
+                { name: 'Ibuprofen', unit: 'mg', doseRange: [5, 10] }
+            ];
+            const med = pickRandom(meds);
+            const weight = randomInt(8, 90);
+            const dosePerKg = randomInt(med.doseRange[0], med.doseRange[1]);
+            const answer = weight * dosePerKg;
+            return {
+                type: 'weight',
+                typeLabel: 'Weight-Based Dosing',
+                medName: med.name,
+                unit: med.unit,
+                weight,
+                dosePerKg,
+                answer,
+                tolerance: 0.5,
+                steps: `${weight} kg × ${dosePerKg} ${med.unit}/kg = ${answer} ${med.unit}`
+            };
+        }
+
+        function buildRatioProblem() {
+            const scenarios = [
+                { med: 'Cefalexin', ordered: 500, haveDose: 250, haveVol: 5, unit: 'mg' },
+                { med: 'Amoxicillin', ordered: 400, haveDose: 200, haveVol: 5, unit: 'mg' },
+                { med: 'Paracetamol syrup', ordered: 300, haveDose: 120, haveVol: 5, unit: 'mg' },
+                { med: 'Ciprofloxacin IV', ordered: 250, haveDose: 100, haveVol: 10, unit: 'mg' },
+                { med: 'Metronidazole', ordered: 750, haveDose: 500, haveVol: 100, unit: 'mg' }
+            ];
+            const s = pickRandom(scenarios);
+            const answer = Math.round(((s.ordered / s.haveDose) * s.haveVol) * 100) / 100;
+            return {
+                type: 'ratio',
+                typeLabel: 'D/H × Q (Liquid Dose)',
+                medName: s.med,
+                ordered: s.ordered,
+                haveDose: s.haveDose,
+                haveVol: s.haveVol,
+                unit: s.unit,
+                answer,
+                tolerance: 0.15,
+                steps: `(${s.ordered} ${s.unit} ÷ ${s.haveDose} ${s.unit}) × ${s.haveVol} mL = ${answer} mL`
+            };
+        }
+
+        function buildMlHrProblem() {
+            const volume = pickRandom([500, 750, 1000, 1500, 2000]);
+            const time = pickRandom([4, 5, 6, 8, 10, 12]);
+            const answer = Math.round((volume / time) * 100) / 100;
+            const fluids = ['Normal Saline 0.9%', 'D5W', 'Lactated Ringer\'s', 'D5 0.3% NaCl'];
+            return {
+                type: 'mlhr',
+                typeLabel: 'IV Flow Rate (mL/hr)',
+                medName: pickRandom(fluids),
+                volume,
+                time,
+                answer,
+                tolerance: 0.15,
+                steps: `${volume} mL ÷ ${time} hr = ${answer} mL/hr`
+            };
+        }
+
+        function buildGttProblem() {
+            const volume = pickRandom([250, 500, 750, 1000]);
+            const hours = pickRandom([2, 3, 4, 6, 8]);
+            const dropFactor = pickRandom([10, 15, 20, 60]);
+            const timeMin = hours * 60;
+            const answer = Math.round((volume * dropFactor) / timeMin);
+            return {
+                type: 'gtt',
+                typeLabel: 'IV Drip Rate (gtt/min)',
+                medName: 'IV Infusion',
+                volume,
+                hours,
+                dropFactor,
+                answer,
+                tolerance: 1,
+                steps: `(${volume} mL × ${dropFactor} gtt/mL) ÷ ${timeMin} min = ${answer} gtt/min`
+            };
+        }
+
+        function buildTabletProblem() {
+            const scenarios = [
+                { med: 'Paracetamol', ordered: 1000, tabStrength: 500, unit: 'mg' },
+                { med: 'Metformin', ordered: 1500, tabStrength: 500, unit: 'mg' },
+                { med: 'Cefalexin', ordered: 500, tabStrength: 250, unit: 'mg' },
+                { med: 'Aspirin', ordered: 162, tabStrength: 81, unit: 'mg' },
+                { med: 'Losartan', ordered: 100, tabStrength: 50, unit: 'mg' }
+            ];
+            const s = pickRandom(scenarios);
+            const answer = s.ordered / s.tabStrength;
+            return {
+                type: 'tablet',
+                typeLabel: 'Tablet Count',
+                medName: s.med,
+                ordered: s.ordered,
+                tabStrength: s.tabStrength,
+                unit: s.unit,
+                answer,
+                tolerance: 0.01,
+                steps: `${s.ordered} ${s.unit} ÷ ${s.tabStrength} ${s.unit}/tab = ${answer} tablet(s)`
+            };
+        }
+
+        function buildMcgProblem() {
+            const scenarios = [
+                { med: 'Fentanyl', orderedMg: 0.1, concMcg: 50, unit: 'mcg/mL' },
+                { med: 'Digoxin', orderedMg: 0.25, concMcg: 250, unit: 'mcg/mL' },
+                { med: 'Epinephrine', orderedMg: 0.5, concMcg: 100, unit: 'mcg/mL' },
+                { med: 'Norepinephrine', orderedMg: 2, concMcg: 400, unit: 'mcg/mL' }
+            ];
+            const s = pickRandom(scenarios);
+            const orderedMcg = s.orderedMg * 1000;
+            const answer = Math.round((orderedMcg / s.concMcg) * 100) / 100;
+            return {
+                type: 'mcg',
+                typeLabel: 'mcg ↔ mg Conversion',
+                medName: s.med,
+                orderedMg: s.orderedMg,
+                concMcg: s.concMcg,
+                answer,
+                tolerance: 0.15,
+                steps: `${s.orderedMg} mg = ${orderedMcg} mcg → ${orderedMcg} mcg ÷ ${s.concMcg} mcg/mL = ${answer} mL`
+            };
+        }
+
+        const DOSAGE_BUILDERS = {
+            weight: buildWeightProblem,
+            ratio: buildRatioProblem,
+            mlhr: buildMlHrProblem,
+            gtt: buildGttProblem,
+            tablet: buildTabletProblem,
+            mcg: buildMcgProblem
+        };
 
         function generateDosageProblem() {
-            currentDosageProblem = DOSAGE_PROBLEMS[Math.floor(Math.random() * DOSAGE_PROBLEMS.length)];
+            const filter = getDosageTypeFilter();
+            let builder;
+            if (filter === 'all') {
+                const keys = Object.keys(DOSAGE_BUILDERS);
+                builder = DOSAGE_BUILDERS[pickRandom(keys)];
+            } else {
+                builder = DOSAGE_BUILDERS[filter] || buildWeightProblem;
+            }
+            currentDosageProblem = builder();
             const container = document.getElementById('dosage-practice-container');
             if (!container) return;
 
-            let html = `
-                <div class="space-y-4">
-                    <div class="p-4 bg-slate-800/50 rounded-xl border border-blue-500/30">
-                        <p class="font-bold text-blue-400 mb-2">${currentDosageProblem.medName}</p>`;
+            const p = currentDosageProblem;
+            let details = '';
 
-            if (currentDosageProblem.weight) {
-                html += `<p class="text-slate-300 text-sm"><strong>Patient Weight:</strong> ${currentDosageProblem.weight} kg</p>
-                         <p class="text-slate-300 text-sm"><strong>Dose:</strong> ${currentDosageProblem.dosePerKg} ${currentDosageProblem.unit}/kg</p>`;
-            } else {
-                html += `<p class="text-slate-300 text-sm"><strong>Volume:</strong> ${currentDosageProblem.volume} mL</p>
-                         <p class="text-slate-300 text-sm"><strong>Concentration:</strong> ${currentDosageProblem.concentration} ${currentDosageProblem.unit}</p>
-                         <p class="text-slate-300 text-sm"><strong>Infusion Time:</strong> ${currentDosageProblem.time} hours</p>`;
+            if (p.type === 'weight') {
+                details = `<p class="text-slate-300 text-sm"><strong>Patient Weight:</strong> ${p.weight} kg</p>
+                           <p class="text-slate-300 text-sm"><strong>Ordered Dose:</strong> ${p.dosePerKg} ${p.unit}/kg</p>
+                           <p class="text-slate-300 text-sm mt-2"><strong>Calculate:</strong> Total dose in ${p.unit}</p>`;
+            } else if (p.type === 'ratio') {
+                details = `<p class="text-slate-300 text-sm"><strong>Ordered:</strong> ${p.ordered} ${p.unit}</p>
+                           <p class="text-slate-300 text-sm"><strong>Available:</strong> ${p.haveDose} ${p.unit} per ${p.haveVol} mL</p>
+                           <p class="text-slate-300 text-sm mt-2"><strong>Calculate:</strong> Volume to administer (mL)</p>`;
+            } else if (p.type === 'mlhr') {
+                details = `<p class="text-slate-300 text-sm"><strong>Solution:</strong> ${p.medName}</p>
+                           <p class="text-slate-300 text-sm"><strong>Volume to Infuse:</strong> ${p.volume} mL</p>
+                           <p class="text-slate-300 text-sm"><strong>Time:</strong> ${p.time} hours</p>
+                           <p class="text-slate-300 text-sm mt-2"><strong>Calculate:</strong> Infusion rate (mL/hr)</p>`;
+            } else if (p.type === 'gtt') {
+                details = `<p class="text-slate-300 text-sm"><strong>Volume:</strong> ${p.volume} mL</p>
+                           <p class="text-slate-300 text-sm"><strong>Infusion Time:</strong> ${p.hours} hours</p>
+                           <p class="text-slate-300 text-sm"><strong>Drop Factor:</strong> ${p.dropFactor} gtt/mL</p>
+                           <p class="text-slate-300 text-sm mt-2"><strong>Calculate:</strong> Drip rate (gtt/min) — round to whole number</p>`;
+            } else if (p.type === 'tablet') {
+                details = `<p class="text-slate-300 text-sm"><strong>Ordered:</strong> ${p.ordered} ${p.unit}</p>
+                           <p class="text-slate-300 text-sm"><strong>Available:</strong> ${p.tabStrength} ${p.unit} tablets</p>
+                           <p class="text-slate-300 text-sm mt-2"><strong>Calculate:</strong> Number of tablets to give</p>`;
+            } else if (p.type === 'mcg') {
+                details = `<p class="text-slate-300 text-sm"><strong>Ordered:</strong> ${p.orderedMg} mg</p>
+                           <p class="text-slate-300 text-sm"><strong>Available:</strong> ${p.concMcg} mcg/mL</p>
+                           <p class="text-slate-300 text-sm mt-2"><strong>Calculate:</strong> Volume to draw up (mL)</p>`;
             }
 
-            html += `
-                        <p class="text-slate-100 font-semibold mt-3">${currentDosageProblem.instruction}</p>
-                    </div>
+            const unitHint = p.type === 'gtt' ? 'gtt/min' : p.type === 'tablet' ? 'tablets' : p.type === 'ratio' || p.type === 'mcg' ? 'mL' : p.type === 'mlhr' ? 'mL/hr' : p.unit || 'mg';
 
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold uppercase tracking-wider text-purple-400 bg-purple-900/30 px-2 py-1 rounded">${p.typeLabel}</span>
+                        ${dosageStreak > 0 ? `<span class="text-xs text-emerald-400">🔥 Streak: ${dosageStreak}</span>` : ''}
+                    </div>
+                    <div class="p-4 bg-slate-800/50 rounded-xl border border-purple-500/30">
+                        <p class="font-bold text-purple-400 mb-2">${p.medName}</p>
+                        ${details}
+                    </div>
                     <div class="space-y-2">
-                        <label class="text-sm text-slate-400">Your Answer:</label>
+                        <label class="text-sm text-slate-400">Your Answer (${unitHint}):</label>
                         <div class="flex gap-2">
-                            <input type="number" id="dosage-answer" placeholder="Enter your answer" class="flex-1 p-3 bg-slate-900 border border-slate-700 rounded-lg text-slate-200">
-                            <button onclick="submitDosageAnswer()" class="px-4 py-3 rounded-lg bg-blue-600 text-white font-bold">Check Answer</button>
+                            <input type="number" id="dosage-answer" step="any" placeholder="Enter your answer" class="flex-1 p-3 bg-slate-900 border border-slate-700 rounded-lg text-slate-200" onkeydown="if(event.key==='Enter')submitDosageAnswer()">
+                            <button onclick="submitDosageAnswer()" class="px-4 py-3 rounded-lg bg-purple-600 text-white font-bold">Check</button>
                         </div>
                     </div>
                     <div id="dosage-result" class="min-h-[40px]"></div>
                 </div>`;
 
-            container.innerHTML = html;
+            trackUsageSafe('dosage_practice', 'problem_generated', { type: p.type }, { minIntervalMs: 500 });
         }
 
         function submitDosageAnswer() {
             const input = document.getElementById('dosage-answer');
             const resultDiv = document.getElementById('dosage-result');
+            if (!input || !resultDiv || !currentDosageProblem) return;
             const userAnswer = parseFloat(input.value);
 
             if (isNaN(userAnswer)) {
-                resultDiv.innerHTML = '<p class="text-red-400">Please enter a valid number</p>';
+                resultDiv.innerHTML = '<p class="text-red-400 text-sm">Please enter a valid number.</p>';
                 return;
             }
 
-            const isCorrect = Math.abs(userAnswer - currentDosageProblem.answer) < 0.1;
+            const p = currentDosageProblem;
+            const isCorrect = Math.abs(userAnswer - p.answer) <= (p.tolerance || 0.1);
+
             if (isCorrect) {
+                dosageStreak += 1;
                 resultDiv.innerHTML = `
                     <div class="p-3 bg-emerald-900/30 border border-emerald-600 rounded-lg">
                         <p class="text-emerald-400 font-bold">✓ CORRECT!</p>
-                        <p class="text-emerald-300 text-sm">Correct answer: ${currentDosageProblem.answer}</p>
+                        <p class="text-emerald-300 text-sm mt-1"><strong>Solution:</strong> ${p.steps}</p>
                     </div>
-                    <button onclick="generateDosageProblem()" class="w-full mt-3 py-2 bg-emerald-600 text-white rounded-lg font-bold">Next Problem</button>`;
+                    <button onclick="generateDosageProblem()" class="w-full mt-3 py-2 bg-emerald-600 text-white rounded-lg font-bold">Next Problem →</button>`;
             } else {
+                dosageStreak = 0;
                 resultDiv.innerHTML = `
                     <div class="p-3 bg-red-900/30 border border-red-600 rounded-lg">
                         <p class="text-red-400 font-bold">✗ INCORRECT</p>
-                        <p class="text-red-300 text-sm">Your answer: ${userAnswer} | Correct answer: ${currentDosageProblem.answer}</p>
+                        <p class="text-red-300 text-sm">Your answer: ${userAnswer} | Correct: ${p.answer}</p>
+                        <p class="text-slate-300 text-sm mt-2"><strong>How to solve:</strong> ${p.steps}</p>
                     </div>
-                    <button onclick="generateDosageProblem()" class="w-full mt-3 py-2 bg-slate-700 text-slate-200 rounded-lg font-bold">Try Another Problem</button>`;
+                    <div class="flex gap-2 mt-3">
+                        <button onclick="document.getElementById('dosage-answer').disabled=false; document.getElementById('dosage-answer').value=''; document.getElementById('dosage-result').innerHTML=''; document.getElementById('dosage-answer').focus();" class="flex-1 py-2 bg-slate-700 text-slate-200 rounded-lg font-bold">Try Again</button>
+                        <button onclick="generateDosageProblem()" class="flex-1 py-2 bg-purple-600 text-white rounded-lg font-bold">New Problem</button>
+                    </div>`;
+                input.disabled = true;
             }
+
+            trackUsageSafe('dosage_practice', 'answer_checked', { type: p.type, correct: isCorrect }, { minIntervalMs: 300 });
         }
 
         // ============= AOG & EDD CALCULATOR =============
