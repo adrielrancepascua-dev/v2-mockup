@@ -221,6 +221,20 @@
         input[type="checkbox"], input[type="radio"] { -webkit-appearance: auto !important; appearance: auto !important; min-height: auto; min-width: auto; padding: 0; border-radius: 0; background: transparent; }
         button { min-height: 44px; min-width: 44px; padding: 12px; cursor: pointer; border: none; border-radius: 0.875rem; font-weight: 700; transition: all 0.3s; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
         button:active { transform: scale(0.98); }
+        button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        /* Weekly challenge — readable buttons (override browser default white) */
+        .btn-wc-primary { background: linear-gradient(to right, #d97706, #fbbf24) !important; color: #0f172a !important; border: none !important; }
+        .btn-wc-secondary { background-color: #1e293b !important; color: #fcd34d !important; border: 2px solid #d97706 !important; }
+        .btn-wc-prev { background-color: #334155 !important; color: #f8fafc !important; border: 2px solid #64748b !important; }
+        .btn-wc-next { background-color: #0891b2 !important; color: #ffffff !important; border: 2px solid #0e7490 !important; }
+        .btn-wc-close { background-color: #1e293b !important; color: #cbd5e1 !important; border: 1px solid #475569 !important; }
+        .btn-wc-choice { background-color: #1e293b !important; color: #f1f5f9 !important; border: 2px solid #475569 !important; text-align: left; }
+        .btn-wc-choice:hover:not(:disabled) { background-color: #334155 !important; border-color: #64748b !important; }
+        .btn-wc-choice-correct { background-color: rgba(6, 78, 59, 0.5) !important; color: #a7f3d0 !important; border: 2px solid #10b981 !important; }
+        .btn-wc-choice-wrong { background-color: rgba(127, 29, 29, 0.4) !important; color: #fecaca !important; border: 2px solid #ef4444 !important; }
+        .btn-wc-choice-muted { background-color: #1e293b !important; color: #64748b !important; border: 2px solid #334155 !important; }
+        .wc-progress-track { height: 10px; background: #0f172a; border-radius: 9999px; overflow: hidden; border: 1px solid #334155; }
+        .wc-progress-fill { height: 100%; background: linear-gradient(90deg, #22d3ee, #34d399); border-radius: 9999px; transition: width 0.35s ease; }
         .transition { transition: all 0.3s; }
         .transition-all { transition: all 0.3s; }
         .pr-2 { padding-right: 0.5rem; }
@@ -2065,34 +2079,36 @@
             <!-- WEEKLY CHALLENGE & LEADERBOARD -->
             <section id="weekly-leaderboard-section" class="rounded-2xl p-4 sm:p-6 border border-slate-700 shadow-2xl mb-6 scroll-mt-20" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                    <h2 class="text-lg sm:text-xl font-bold text-white flex items-center">
-                        <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-yellow-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        Weekly Challenge Leaderboard
-                    </h2>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center">
+                            <span class="mr-2">🏆</span> This Week's Challenge
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">15 questions · new set every 2 weeks · leaderboard resets weekly</p>
+                    </div>
                     <span id="leaderboard-sync-status" class="text-xs font-bold px-2 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-600 self-start">Checking sync…</span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                     <div class="p-3 bg-slate-800/50 rounded-xl border border-yellow-500/30">
-                        <p class="text-[10px] uppercase text-slate-500 font-bold">Week Resets</p>
+                        <p class="text-[10px] uppercase text-slate-500 font-bold">📅 Week Resets</p>
                         <p id="leaderboard-week-label" class="text-sm font-bold text-yellow-400">—</p>
                         <p id="leaderboard-week-reset" class="text-xs text-slate-400 mt-1">—</p>
                     </div>
                     <div class="p-3 bg-slate-800/50 rounded-xl border border-cyan-500/30">
-                        <p class="text-[10px] uppercase text-slate-500 font-bold">Question Set Rotates</p>
+                        <p class="text-[10px] uppercase text-slate-500 font-bold">🔄 New Questions</p>
                         <p id="leaderboard-rotation-label" class="text-sm font-bold text-cyan-400">—</p>
                         <p id="leaderboard-rotation-reset" class="text-xs text-slate-400 mt-1">Every 2 weeks</p>
                     </div>
                     <div class="p-3 bg-slate-800/50 rounded-xl border border-emerald-500/30">
-                        <p class="text-[10px] uppercase text-slate-500 font-bold">Your Progress</p>
+                        <p class="text-[10px] uppercase text-slate-500 font-bold">📊 Your Progress</p>
                         <p id="leaderboard-your-progress" class="text-sm font-bold text-emerald-400">—</p>
-                        <p id="leaderboard-your-score" class="text-xs text-slate-400 mt-1">First attempt only</p>
+                        <p id="leaderboard-your-score" class="text-xs text-slate-400 mt-1">First try counts for ranking</p>
                     </div>
                 </div>
                 <div id="leaderboard-table-container" class="mb-4 min-h-[120px]"></div>
-                <p class="text-[10px] text-slate-500 mb-4">Scores use your <strong class="text-slate-400">first answer</strong> per question only. Review anytime — retries won't change your rank. Class rankings sync when online (database hookup coming soon).</p>
+                <p class="text-xs text-slate-400 mb-4 leading-relaxed">Your <strong class="text-slate-300">first answer</strong> on each question is what counts for the leaderboard. You can review anytime to study — going back won't change your score.</p>
                 <div class="flex flex-col sm:flex-row gap-2">
-                    <button onclick="startWeeklyChallenge()" id="weekly-challenge-start-btn" class="flex-1 py-3 rounded-lg font-bold bg-gradient-to-r from-yellow-600 to-amber-500 text-slate-900">Start Weekly Challenge</button>
-                    <button onclick="reviewWeeklyChallenge()" class="flex-1 py-3 rounded-lg font-bold border-2 border-yellow-600 text-yellow-400 hover:bg-yellow-900/20">Review Questions</button>
+                    <button onclick="startWeeklyChallenge()" id="weekly-challenge-start-btn" class="btn-wc-primary flex-1 py-3 rounded-xl font-bold">Start Weekly Challenge</button>
+                    <button onclick="reviewWeeklyChallenge()" class="btn-wc-secondary flex-1 py-3 rounded-xl font-bold">📖 Review Questions</button>
                 </div>
                 <div id="weekly-challenge-container" class="mt-4 min-h-[0]"></div>
             </section>
@@ -3231,10 +3247,10 @@
             }
             if (startBtn) {
                 startBtn.textContent = stats.answered >= stats.total
-                    ? 'Review Weekly Challenge'
+                    ? '📖 Review Weekly Challenge'
                     : stats.answered > 0
-                        ? 'Continue Weekly Challenge'
-                        : 'Start Weekly Challenge';
+                        ? '▶ Continue Challenge'
+                        : '▶ Start Weekly Challenge';
             }
 
             if (!tableContainer) return;
@@ -3312,47 +3328,47 @@
 
             const attempt = state.attempts[String(questionId)];
             const isLocked = !!attempt;
-            const progress = `${state.currentIndex + 1} / ${state.questionIds.length}`;
             const stats = getWeeklyScoreFromState(state);
+            const progressNum = state.currentIndex + 1;
+            const progressTotal = state.questionIds.length;
+            const answeredCount = stats.answered;
 
             let html = `
-                <div class="p-4 bg-slate-900/60 rounded-xl border border-yellow-500/30 space-y-4">
-                    <div class="flex flex-wrap justify-between items-center gap-2">
-                        <div class="text-sm text-slate-400">
-                            <span class="font-bold text-yellow-400">Weekly Challenge</span>
-                            <span class="text-slate-600 mx-2">|</span>
-                            <span>${progress}</span>
-                            <span class="text-slate-600 mx-2">|</span>
-                            <span class="text-slate-400">${question.system}</span>
+                <div class="p-4 sm:p-5 bg-slate-900/60 rounded-2xl border border-cyan-500/20 space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap justify-between items-center gap-2">
+                            <p class="text-sm font-bold text-cyan-300">Question ${progressNum} of ${progressTotal}</p>
+                            <span class="text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded-full">${question.system}</span>
+                            ${reviewMode ? '<span class="text-xs bg-blue-900/50 text-blue-300 px-2 py-1 rounded-full">📖 Study mode</span>' : ''}
                         </div>
-                        ${reviewMode ? '<span class="text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Review Mode</span>' : ''}
-                        ${isLocked && !reviewMode ? '<span class="text-xs bg-amber-900/50 text-amber-300 px-2 py-0.5 rounded border border-amber-700">First answer locked</span>' : ''}
+                        <div class="wc-progress-track">
+                            <div class="wc-progress-fill" style="width: ${Math.round((answeredCount / progressTotal) * 100)}%"></div>
+                        </div>
+                        <p class="text-[11px] text-slate-500">${answeredCount} of ${progressTotal} answered this week</p>
                     </div>
-                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <p class="text-base font-semibold text-slate-100">${question.stem}</p>
+                    <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-600">
+                        <p class="text-base leading-relaxed font-medium text-slate-100">${question.stem}</p>
                     </div>
                     <div class="space-y-2">`;
 
             question.choices.forEach((choice, idx) => {
                 const isSelected = attempt && attempt.firstChoice === idx;
                 const isCorrect = idx === question.correct;
-                let choiceClass = 'bg-slate-800 border-slate-600 text-slate-100';
+                let choiceClass = 'btn-wc-choice';
                 let disabled = '';
 
                 if (isLocked) {
                     disabled = 'disabled';
-                    if (isCorrect) choiceClass = 'bg-emerald-900/40 border-emerald-500 text-emerald-200';
-                    else if (isSelected) choiceClass = 'bg-red-900/40 border-red-500 text-red-200';
-                    else choiceClass = 'bg-slate-800 border-slate-600 text-slate-400';
-                } else if (!reviewMode) {
-                    choiceClass += ' cursor-pointer hover:bg-slate-700 hover:border-slate-500';
+                    if (isCorrect) choiceClass = 'btn-wc-choice btn-wc-choice-correct';
+                    else if (isSelected) choiceClass = 'btn-wc-choice btn-wc-choice-wrong';
+                    else choiceClass = 'btn-wc-choice btn-wc-choice-muted';
                 }
 
                 const clickHandler = (!isLocked && !reviewMode) ? `onclick="answerWeeklyChallenge(${idx})"` : '';
                 html += `
                     <button ${clickHandler} ${disabled}
-                            class="w-full p-3 rounded-lg border-2 text-left transition-all ${choiceClass}">
-                        <span class="font-semibold">${String.fromCharCode(65 + idx)}:</span> ${choice}
+                            class="w-full p-3 rounded-xl transition-all ${choiceClass}">
+                        <span class="font-bold text-cyan-400 mr-1">${String.fromCharCode(65 + idx)}.</span> ${choice}
                     </button>`;
             });
 
@@ -3360,30 +3376,31 @@
 
             if (isLocked) {
                 html += `
-                    <div class="p-3 rounded-xl border ${attempt.firstCorrect ? 'bg-emerald-900/20 border-emerald-600' : 'bg-red-900/20 border-red-600'}">
-                        <p class="text-sm font-bold ${attempt.firstCorrect ? 'text-emerald-400' : 'text-red-400'} mb-1">
-                            ${attempt.firstCorrect ? '✓ First attempt: Correct' : '✗ First attempt: Incorrect'}
+                    <div class="p-4 rounded-xl border ${attempt.firstCorrect ? 'bg-emerald-900/25 border-emerald-500' : 'bg-amber-900/20 border-amber-600'}">
+                        <p class="text-sm font-bold ${attempt.firstCorrect ? 'text-emerald-300' : 'text-amber-300'} mb-2">
+                            ${attempt.firstCorrect ? '🎉 Great job — you got it!' : '💡 Not quite — here\'s why:'}
                         </p>
-                        <p class="text-xs text-slate-300"><strong>Rationale:</strong> ${question.rationale}</p>
-                        <p class="text-[10px] text-slate-500 mt-2">Answered ${new Date(attempt.firstAt).toLocaleString()} · Retries don't change leaderboard score</p>
+                        <p class="text-sm text-slate-300 leading-relaxed">${question.rationale}</p>
                     </div>`;
+            } else if (!reviewMode) {
+                html += `<p class="text-xs text-slate-500 text-center">Tap an answer when you're ready — you can't change it after.</p>`;
             }
 
             html += `
-                    <div class="flex gap-2">
-                        <button onclick="navigateWeeklyChallenge(-1)" class="flex-1 py-2 rounded-lg border border-slate-600 text-slate-300 font-bold" ${state.currentIndex === 0 ? 'disabled' : ''}>← Prev</button>
-                        <button onclick="navigateWeeklyChallenge(1)" class="flex-1 py-2 rounded-lg border border-slate-600 text-slate-300 font-bold" ${state.currentIndex >= state.questionIds.length - 1 ? 'disabled' : ''}>Next →</button>
+                    <div class="flex gap-3">
+                        <button onclick="navigateWeeklyChallenge(-1)" class="btn-wc-prev flex-1 py-3 rounded-xl font-bold" ${state.currentIndex === 0 ? 'disabled' : ''}>← Back</button>
+                        <button onclick="navigateWeeklyChallenge(1)" class="btn-wc-next flex-1 py-3 rounded-xl font-bold" ${state.currentIndex >= state.questionIds.length - 1 ? 'disabled' : ''}>Next →</button>
                     </div>`;
 
             if (!reviewMode && stats.answered >= stats.total) {
                 html += `
-                    <div class="p-3 bg-emerald-900/20 border border-emerald-600 rounded-xl text-center">
-                        <p class="text-emerald-400 font-bold">Weekly Challenge Complete!</p>
-                        <p class="text-sm text-slate-300">${stats.correct}/${stats.total} correct on first attempts</p>
+                    <div class="p-4 bg-emerald-900/25 border border-emerald-500 rounded-xl text-center">
+                        <p class="text-emerald-300 font-bold text-lg">🎊 You finished this week's challenge!</p>
+                        <p class="text-sm text-slate-300 mt-1">${stats.correct} out of ${stats.total} correct on first try</p>
                     </div>`;
             }
 
-            html += `<button onclick="closeWeeklyChallengeView()" class="w-full py-2 text-sm text-slate-500 hover:text-slate-300">Close</button></div>`;
+            html += `<button onclick="closeWeeklyChallengeView()" class="btn-wc-close w-full py-2.5 rounded-xl text-sm font-bold">Close</button></div>`;
             container.innerHTML = html;
         }
 
