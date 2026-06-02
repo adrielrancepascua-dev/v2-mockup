@@ -1678,10 +1678,7 @@
     </script>
 
     <div id="app-shell" style="display: none;">
-    <div class="bg-red-700 text-white py-3 px-4 text-xs md:text-sm font-black text-center tracking-widest uppercase border-b-2 border-red-900 sticky top-0 z-50 shadow-lg" style="letter-spacing: 0.15em;">
-        ⚠️ V2 MOCKUP — NOT CONNECTED TO PRODUCTION ⚠️
-    </div>
-    <div class="bg-amber-600 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-amber-800 sticky top-12 z-50 shadow-lg" style="margin-top: 0;">
+    <div class="bg-amber-600 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-amber-800 sticky top-0 z-50 shadow-lg">
         📚 SIMULATION MODE • Verify with Faculty & Textbooks • Academic Reference Only
     </div>
 
@@ -2065,11 +2062,47 @@
 
         <!-- ============ PRACTICE TAB CONTENT ============ -->
         <div id="content-practice" class="tab-content hidden max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
-            <!-- NLE PRACTICE QUESTIONS SECTION -->
+            <!-- WEEKLY CHALLENGE & LEADERBOARD -->
+            <section id="weekly-leaderboard-section" class="rounded-2xl p-4 sm:p-6 border border-slate-700 shadow-2xl mb-6 scroll-mt-20" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                    <h2 class="text-lg sm:text-xl font-bold text-white flex items-center">
+                        <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-yellow-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        Weekly Challenge Leaderboard
+                    </h2>
+                    <span id="leaderboard-sync-status" class="text-xs font-bold px-2 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-600 self-start">Checking sync…</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                    <div class="p-3 bg-slate-800/50 rounded-xl border border-yellow-500/30">
+                        <p class="text-[10px] uppercase text-slate-500 font-bold">Week Resets</p>
+                        <p id="leaderboard-week-label" class="text-sm font-bold text-yellow-400">—</p>
+                        <p id="leaderboard-week-reset" class="text-xs text-slate-400 mt-1">—</p>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded-xl border border-cyan-500/30">
+                        <p class="text-[10px] uppercase text-slate-500 font-bold">Question Set Rotates</p>
+                        <p id="leaderboard-rotation-label" class="text-sm font-bold text-cyan-400">—</p>
+                        <p id="leaderboard-rotation-reset" class="text-xs text-slate-400 mt-1">Every 2 weeks</p>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded-xl border border-emerald-500/30">
+                        <p class="text-[10px] uppercase text-slate-500 font-bold">Your Progress</p>
+                        <p id="leaderboard-your-progress" class="text-sm font-bold text-emerald-400">—</p>
+                        <p id="leaderboard-your-score" class="text-xs text-slate-400 mt-1">First attempt only</p>
+                    </div>
+                </div>
+                <div id="leaderboard-table-container" class="mb-4 min-h-[120px]"></div>
+                <p class="text-[10px] text-slate-500 mb-4">Scores use your <strong class="text-slate-400">first answer</strong> per question only. Review anytime — retries won't change your rank. Class rankings sync when online (database hookup coming soon).</p>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <button onclick="startWeeklyChallenge()" id="weekly-challenge-start-btn" class="flex-1 py-3 rounded-lg font-bold bg-gradient-to-r from-yellow-600 to-amber-500 text-slate-900">Start Weekly Challenge</button>
+                    <button onclick="reviewWeeklyChallenge()" class="flex-1 py-3 rounded-lg font-bold border-2 border-yellow-600 text-yellow-400 hover:bg-yellow-900/20">Review Questions</button>
+                </div>
+                <div id="weekly-challenge-container" class="mt-4 min-h-[0]"></div>
+            </section>
+
+            <!-- NLE PRACTICE QUESTIONS SECTION (Free Practice) -->
             <section id="practice-section" class="rounded-2xl p-4 sm:p-6 border border-slate-700 shadow-2xl mb-6 scroll-mt-20" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
-                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center mb-4">
-                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-emerald-400"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> NLE Practice Questions
+                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center mb-1">
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-emerald-400"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> Free Practice
                 </h2>
+                <p class="text-xs text-slate-500 mb-4">Unlimited sessions — not counted on the weekly leaderboard.</p>
                 <div class="mb-4 flex flex-col sm:flex-row gap-2 items-start sm:items-center">
                     <label class="text-sm text-slate-400">Filter by System:</label>
                     <select id="practice-system-filter" onchange="initPracticeSession()" class="flex-1 p-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-200 text-sm">
@@ -2875,7 +2908,7 @@
                 document.getElementById('content-practice').classList.remove('hidden');
                 document.getElementById('tab-practice').classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 document.getElementById('tab-practice').classList.add('active', 'bg-emerald-900/50', 'border-emerald-500/50', 'text-emerald-400');
-                // Initialize practice session if not already done
+                initWeeklyChallengeSystem();
                 if (!currentPracticeSession) initPracticeSession();
             } else if (tab === 'reference') {
                 document.getElementById('content-reference').classList.remove('hidden');
@@ -2892,6 +2925,497 @@
             // Scroll to top of content
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // ============= WEEKLY CHALLENGE & LEADERBOARD (offline-first template) =============
+        const WEEKLY_CHALLENGE_KEY = 'nursepath_weekly_challenge_v1';
+        const LEADERBOARD_CACHE_KEY = 'nursepath_leaderboard_cache_v1';
+        const LEADERBOARD_SYNC_QUEUE_KEY = 'nursepath_leaderboard_sync_queue_v1';
+        const WEEKLY_CHALLENGE_SIZE = 15;
+        const ROTATION_EPOCH = new Date('2025-01-01T00:00:00Z').getTime();
+
+        let weeklyChallengeView = null; // 'challenge' | 'review' | null
+
+        function getWeekId(date = new Date()) {
+            const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            const dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+            return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`;
+        }
+
+        function getWeekResetDate(date = new Date()) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const daysUntilMonday = day === 0 ? 1 : (8 - day);
+            const nextMonday = new Date(d);
+            nextMonday.setDate(d.getDate() + daysUntilMonday);
+            nextMonday.setHours(0, 0, 0, 0);
+            return nextMonday;
+        }
+
+        function getRotationId(date = new Date()) {
+            const days = Math.floor((date.getTime() - ROTATION_EPOCH) / 86400000);
+            return `R${Math.max(0, Math.floor(days / 14))}`;
+        }
+
+        function getRotationResetDate(date = new Date()) {
+            const days = Math.floor((date.getTime() - ROTATION_EPOCH) / 86400000);
+            const daysIntoRotation = days % 14;
+            const reset = new Date(date);
+            reset.setDate(reset.getDate() + (14 - daysIntoRotation));
+            reset.setHours(0, 0, 0, 0);
+            return reset;
+        }
+
+        function rotationSeed(rotationId) {
+            return rotationId.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+        }
+
+        function seededShuffle(array, seed) {
+            const arr = [...array];
+            let s = seed >>> 0;
+            for (let i = arr.length - 1; i > 0; i--) {
+                s = (Math.imul(1664525, s) + 1013904223) >>> 0;
+                const j = s % (i + 1);
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function getWeeklyQuestionIds(rotationId) {
+            const shuffled = seededShuffle(QUESTION_BANK, rotationSeed(rotationId));
+            return shuffled.slice(0, WEEKLY_CHALLENGE_SIZE).map(q => q.id);
+        }
+
+        function getQuestionById(id) {
+            return QUESTION_BANK.find(q => q.id === id) || null;
+        }
+
+        function formatLeaderboardName(email) {
+            if (!email || email === 'anonymous') return 'Anonymous Student';
+            const local = email.split('@')[0] || email;
+            return local.replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function readWeeklyChallengeState() {
+            try {
+                const raw = localStorage.getItem(WEEKLY_CHALLENGE_KEY);
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function saveWeeklyChallengeState(state) {
+            localStorage.setItem(WEEKLY_CHALLENGE_KEY, JSON.stringify(state));
+        }
+
+        function readLeaderboardCache() {
+            try {
+                const raw = localStorage.getItem(LEADERBOARD_CACHE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveLeaderboardCache(cache) {
+            const weekIds = Object.keys(cache).sort().reverse();
+            weekIds.slice(4).forEach(id => delete cache[id]);
+            localStorage.setItem(LEADERBOARD_CACHE_KEY, JSON.stringify(cache));
+        }
+
+        function readLeaderboardSyncQueue() {
+            try {
+                const raw = localStorage.getItem(LEADERBOARD_SYNC_QUEUE_KEY);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLeaderboardSyncQueue(queue) {
+            localStorage.setItem(LEADERBOARD_SYNC_QUEUE_KEY, JSON.stringify(queue.slice(-100)));
+        }
+
+        function getWeeklyScoreFromState(state) {
+            let correct = 0;
+            let answered = 0;
+            (state.questionIds || []).forEach(id => {
+                const attempt = state.attempts[String(id)];
+                if (attempt) {
+                    answered += 1;
+                    if (attempt.firstCorrect) correct += 1;
+                }
+            });
+            return { correct, answered, total: state.questionIds.length };
+        }
+
+        function ensureWeeklyChallengeState() {
+            const weekId = getWeekId();
+            const rotationId = getRotationId();
+            const questionIds = getWeeklyQuestionIds(rotationId);
+            let state = readWeeklyChallengeState();
+
+            if (!state || state.weekId !== weekId || state.rotationId !== rotationId) {
+                state = {
+                    weekId,
+                    rotationId,
+                    questionIds,
+                    attempts: {},
+                    currentIndex: 0,
+                    startedAt: new Date().toISOString(),
+                    completedAt: null
+                };
+                saveWeeklyChallengeState(state);
+            } else if (JSON.stringify(state.questionIds) !== JSON.stringify(questionIds)) {
+                state.questionIds = questionIds;
+                state.attempts = {};
+                state.currentIndex = 0;
+                state.completedAt = null;
+                saveWeeklyChallengeState(state);
+            }
+            return state;
+        }
+
+        function upsertLocalLeaderboardEntry(entry) {
+            const cache = readLeaderboardCache();
+            if (!cache[entry.weekId]) cache[entry.weekId] = [];
+            const idx = cache[entry.weekId].findIndex(e => e.email === entry.email);
+            const existing = idx >= 0 ? cache[entry.weekId][idx] : null;
+            if (!existing || entry.score > existing.score || (entry.score === existing.score && entry.completedAt < existing.completedAt)) {
+                if (idx >= 0) cache[entry.weekId][idx] = entry;
+                else cache[entry.weekId].push(entry);
+            }
+            saveLeaderboardCache(cache);
+        }
+
+        function enqueueLeaderboardSync(entry) {
+            const queue = readLeaderboardSyncQueue();
+            const payload = { ...entry, queuedAt: new Date().toISOString(), synced: false };
+            const idx = queue.findIndex(q => q.weekId === entry.weekId && q.email === entry.email);
+            if (idx >= 0) queue[idx] = payload;
+            else queue.push(payload);
+            saveLeaderboardSyncQueue(queue);
+        }
+
+        function updateLeaderboardSyncStatus(mode) {
+            const el = document.getElementById('leaderboard-sync-status');
+            if (!el) return;
+            const pending = readLeaderboardSyncQueue().filter(q => !q.synced).length;
+            if (mode === 'offline' || (!navigator.onLine && pending > 0)) {
+                el.textContent = `Offline · ${pending} pending`;
+                el.className = 'text-xs font-bold px-2 py-1 rounded-full bg-amber-900/40 text-amber-300 border border-amber-700 self-start';
+            } else if (pending > 0) {
+                el.textContent = `Syncing · ${pending} pending`;
+                el.className = 'text-xs font-bold px-2 py-1 rounded-full bg-blue-900/40 text-blue-300 border border-blue-700 self-start';
+            } else {
+                el.textContent = navigator.onLine ? 'Synced (local)' : 'Offline ready';
+                el.className = 'text-xs font-bold px-2 py-1 rounded-full bg-emerald-900/40 text-emerald-300 border border-emerald-700 self-start';
+            }
+        }
+
+        async function tryFlushLeaderboardSync() {
+            if (!navigator.onLine) {
+                updateLeaderboardSyncStatus('offline');
+                return;
+            }
+            const queue = readLeaderboardSyncQueue();
+            if (!queue.length) {
+                updateLeaderboardSyncStatus('synced');
+                return;
+            }
+
+            // TEMPLATE: no remote database yet — drain queue locally when online.
+            // Future hook: await supabase.from('weekly_leaderboard').upsert(queue)
+            const stillPending = [];
+            queue.forEach(item => {
+                if (!item.synced) {
+                    item.synced = true;
+                    item.syncedAt = new Date().toISOString();
+                    item.syncNote = 'Template mode — connect Supabase table to publish class rankings';
+                }
+                stillPending.push(item);
+            });
+            saveLeaderboardSyncQueue(stillPending.filter(q => !q.synced));
+            updateLeaderboardSyncStatus('synced');
+            renderLeaderboardPanel();
+        }
+
+        function submitWeeklyScoreToLeaderboard(state) {
+            const stats = getWeeklyScoreFromState(state);
+            const user = readGhostUser();
+            const email = user?.email || 'anonymous';
+            const entry = {
+                weekId: state.weekId,
+                rotationId: state.rotationId,
+                email,
+                displayName: formatLeaderboardName(email),
+                score: stats.correct,
+                total: stats.total,
+                percentage: Math.round((stats.correct / stats.total) * 100),
+                completedAt: state.completedAt,
+                isYou: true
+            };
+            upsertLocalLeaderboardEntry(entry);
+            enqueueLeaderboardSync(entry);
+            tryFlushLeaderboardSync();
+            trackUsageSafe('weekly_challenge', 'completed', { score: stats.correct, total: stats.total }, { minIntervalMs: 1000 });
+        }
+
+        function recordWeeklyFirstAnswer(questionId, choiceIdx, isCorrect) {
+            const state = ensureWeeklyChallengeState();
+            const key = String(questionId);
+            if (state.attempts[key]) return state.attempts[key];
+
+            state.attempts[key] = {
+                firstChoice: choiceIdx,
+                firstCorrect: isCorrect,
+                firstAt: new Date().toISOString()
+            };
+
+            const stats = getWeeklyScoreFromState(state);
+            if (stats.answered >= stats.total && !state.completedAt) {
+                state.completedAt = new Date().toISOString();
+                submitWeeklyScoreToLeaderboard(state);
+            }
+            saveWeeklyChallengeState(state);
+            renderLeaderboardPanel();
+            return state.attempts[key];
+        }
+
+        function getLeaderboardEntries(weekId) {
+            const cache = readLeaderboardCache();
+            const user = readGhostUser();
+            const email = user?.email || 'anonymous';
+            const entries = (cache[weekId] || []).map(e => ({
+                ...e,
+                isYou: e.email === email
+            }));
+            entries.sort((a, b) => {
+                if (b.score !== a.score) return b.score - a.score;
+                if (a.completedAt && b.completedAt) return new Date(a.completedAt) - new Date(b.completedAt);
+                return 0;
+            });
+            return entries;
+        }
+
+        function renderLeaderboardPanel() {
+            const state = ensureWeeklyChallengeState();
+            const stats = getWeeklyScoreFromState(state);
+            const weekLabel = document.getElementById('leaderboard-week-label');
+            const weekReset = document.getElementById('leaderboard-week-reset');
+            const rotationLabel = document.getElementById('leaderboard-rotation-label');
+            const rotationReset = document.getElementById('leaderboard-rotation-reset');
+            const yourProgress = document.getElementById('leaderboard-your-progress');
+            const yourScore = document.getElementById('leaderboard-your-score');
+            const tableContainer = document.getElementById('leaderboard-table-container');
+            const startBtn = document.getElementById('weekly-challenge-start-btn');
+
+            if (weekLabel) weekLabel.textContent = state.weekId;
+            if (weekReset) weekReset.textContent = `Resets ${getWeekResetDate().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}`;
+            if (rotationLabel) rotationLabel.textContent = `${state.rotationId} · ${state.questionIds.length} questions`;
+            if (rotationReset) rotationReset.textContent = `New set ${getRotationResetDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+
+            if (yourProgress) {
+                yourProgress.textContent = state.completedAt
+                    ? `Done · ${stats.correct}/${stats.total} first-try correct`
+                    : `${stats.answered}/${stats.total} answered`;
+            }
+            if (yourScore) {
+                yourScore.textContent = stats.answered > 0
+                    ? `${Math.round((stats.correct / stats.answered) * 100)}% on first attempts so far`
+                    : 'First attempt only — retries for study don\'t count';
+            }
+            if (startBtn) {
+                startBtn.textContent = stats.answered >= stats.total
+                    ? 'Review Weekly Challenge'
+                    : stats.answered > 0
+                        ? 'Continue Weekly Challenge'
+                        : 'Start Weekly Challenge';
+            }
+
+            if (!tableContainer) return;
+
+            const entries = getLeaderboardEntries(state.weekId);
+            const completedEntries = entries.filter(e => e.completedAt);
+
+            if (completedEntries.length === 0) {
+                tableContainer.innerHTML = `
+                    <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700 text-center">
+                        <p class="text-slate-400 text-sm">No completed scores this week yet.</p>
+                        <p class="text-slate-500 text-xs mt-1">Finish all ${WEEKLY_CHALLENGE_SIZE} questions to appear on the board. Your progress saves offline.</p>
+                    </div>`;
+            } else {
+                let rows = completedEntries.slice(0, 10).map((entry, idx) => {
+                    const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+                    return `
+                        <div class="flex items-center justify-between p-3 rounded-lg border ${entry.isYou ? 'bg-emerald-900/20 border-emerald-600' : 'bg-slate-800/50 border-slate-700'}">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="text-lg shrink-0">${medal}</span>
+                                <div class="min-w-0">
+                                    <p class="text-sm font-bold text-slate-200 truncate">${entry.displayName}${entry.isYou ? ' (You)' : ''}</p>
+                                    <p class="text-[10px] text-slate-500">${entry.score}/${entry.total} first-try correct</p>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold ${entry.percentage >= 80 ? 'text-emerald-400' : entry.percentage >= 60 ? 'text-yellow-400' : 'text-slate-400'}">${entry.percentage}%</span>
+                        </div>`;
+                }).join('');
+                tableContainer.innerHTML = `<div class="space-y-2">${rows}</div>`;
+            }
+
+            updateLeaderboardSyncStatus();
+        }
+
+        function initWeeklyChallengeSystem() {
+            ensureWeeklyChallengeState();
+            renderLeaderboardPanel();
+            tryFlushLeaderboardSync();
+        }
+
+        function getNextUnansweredWeeklyIndex(state) {
+            return state.questionIds.findIndex(id => !state.attempts[String(id)]);
+        }
+
+        function startWeeklyChallenge() {
+            weeklyChallengeView = 'challenge';
+            const state = ensureWeeklyChallengeState();
+            const nextIdx = getNextUnansweredWeeklyIndex(state);
+            state.currentIndex = nextIdx >= 0 ? nextIdx : 0;
+            saveWeeklyChallengeState(state);
+            renderWeeklyChallengeQuestion(false);
+            document.getElementById('weekly-challenge-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function reviewWeeklyChallenge() {
+            weeklyChallengeView = 'review';
+            const state = ensureWeeklyChallengeState();
+            state.currentIndex = 0;
+            saveWeeklyChallengeState(state);
+            renderWeeklyChallengeQuestion(true);
+            document.getElementById('weekly-challenge-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderWeeklyChallengeQuestion(reviewMode) {
+            const container = document.getElementById('weekly-challenge-container');
+            if (!container) return;
+
+            const state = ensureWeeklyChallengeState();
+            const questionId = state.questionIds[state.currentIndex];
+            const question = getQuestionById(questionId);
+            if (!question) {
+                container.innerHTML = '<p class="text-slate-400 text-sm">Question not found.</p>';
+                return;
+            }
+
+            const attempt = state.attempts[String(questionId)];
+            const isLocked = !!attempt;
+            const progress = `${state.currentIndex + 1} / ${state.questionIds.length}`;
+            const stats = getWeeklyScoreFromState(state);
+
+            let html = `
+                <div class="p-4 bg-slate-900/60 rounded-xl border border-yellow-500/30 space-y-4">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div class="text-sm text-slate-400">
+                            <span class="font-bold text-yellow-400">Weekly Challenge</span>
+                            <span class="text-slate-600 mx-2">|</span>
+                            <span>${progress}</span>
+                            <span class="text-slate-600 mx-2">|</span>
+                            <span class="text-slate-400">${question.system}</span>
+                        </div>
+                        ${reviewMode ? '<span class="text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Review Mode</span>' : ''}
+                        ${isLocked && !reviewMode ? '<span class="text-xs bg-amber-900/50 text-amber-300 px-2 py-0.5 rounded border border-amber-700">First answer locked</span>' : ''}
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <p class="text-base font-semibold text-slate-100">${question.stem}</p>
+                    </div>
+                    <div class="space-y-2">`;
+
+            question.choices.forEach((choice, idx) => {
+                const isSelected = attempt && attempt.firstChoice === idx;
+                const isCorrect = idx === question.correct;
+                let choiceClass = 'bg-slate-800 border-slate-600 text-slate-100';
+                let disabled = '';
+
+                if (isLocked) {
+                    disabled = 'disabled';
+                    if (isCorrect) choiceClass = 'bg-emerald-900/40 border-emerald-500 text-emerald-200';
+                    else if (isSelected) choiceClass = 'bg-red-900/40 border-red-500 text-red-200';
+                    else choiceClass = 'bg-slate-800 border-slate-600 text-slate-400';
+                } else if (!reviewMode) {
+                    choiceClass += ' cursor-pointer hover:bg-slate-700 hover:border-slate-500';
+                }
+
+                const clickHandler = (!isLocked && !reviewMode) ? `onclick="answerWeeklyChallenge(${idx})"` : '';
+                html += `
+                    <button ${clickHandler} ${disabled}
+                            class="w-full p-3 rounded-lg border-2 text-left transition-all ${choiceClass}">
+                        <span class="font-semibold">${String.fromCharCode(65 + idx)}:</span> ${choice}
+                    </button>`;
+            });
+
+            html += `</div>`;
+
+            if (isLocked) {
+                html += `
+                    <div class="p-3 rounded-xl border ${attempt.firstCorrect ? 'bg-emerald-900/20 border-emerald-600' : 'bg-red-900/20 border-red-600'}">
+                        <p class="text-sm font-bold ${attempt.firstCorrect ? 'text-emerald-400' : 'text-red-400'} mb-1">
+                            ${attempt.firstCorrect ? '✓ First attempt: Correct' : '✗ First attempt: Incorrect'}
+                        </p>
+                        <p class="text-xs text-slate-300"><strong>Rationale:</strong> ${question.rationale}</p>
+                        <p class="text-[10px] text-slate-500 mt-2">Answered ${new Date(attempt.firstAt).toLocaleString()} · Retries don't change leaderboard score</p>
+                    </div>`;
+            }
+
+            html += `
+                    <div class="flex gap-2">
+                        <button onclick="navigateWeeklyChallenge(-1)" class="flex-1 py-2 rounded-lg border border-slate-600 text-slate-300 font-bold" ${state.currentIndex === 0 ? 'disabled' : ''}>← Prev</button>
+                        <button onclick="navigateWeeklyChallenge(1)" class="flex-1 py-2 rounded-lg border border-slate-600 text-slate-300 font-bold" ${state.currentIndex >= state.questionIds.length - 1 ? 'disabled' : ''}>Next →</button>
+                    </div>`;
+
+            if (!reviewMode && stats.answered >= stats.total) {
+                html += `
+                    <div class="p-3 bg-emerald-900/20 border border-emerald-600 rounded-xl text-center">
+                        <p class="text-emerald-400 font-bold">Weekly Challenge Complete!</p>
+                        <p class="text-sm text-slate-300">${stats.correct}/${stats.total} correct on first attempts</p>
+                    </div>`;
+            }
+
+            html += `<button onclick="closeWeeklyChallengeView()" class="w-full py-2 text-sm text-slate-500 hover:text-slate-300">Close</button></div>`;
+            container.innerHTML = html;
+        }
+
+        function answerWeeklyChallenge(choiceIdx) {
+            const state = ensureWeeklyChallengeState();
+            const questionId = state.questionIds[state.currentIndex];
+            if (state.attempts[String(questionId)]) return;
+
+            const question = getQuestionById(questionId);
+            const isCorrect = choiceIdx === question.correct;
+            recordWeeklyFirstAnswer(questionId, choiceIdx, isCorrect);
+            renderWeeklyChallengeQuestion(false);
+            trackUsageSafe('weekly_challenge', 'question_answered', { questionId, correct: isCorrect, firstAttempt: true }, { minIntervalMs: 400 });
+        }
+
+        function navigateWeeklyChallenge(delta) {
+            const state = ensureWeeklyChallengeState();
+            const next = state.currentIndex + delta;
+            if (next < 0 || next >= state.questionIds.length) return;
+            state.currentIndex = next;
+            saveWeeklyChallengeState(state);
+            renderWeeklyChallengeQuestion(weeklyChallengeView === 'review');
+        }
+
+        function closeWeeklyChallengeView() {
+            weeklyChallengeView = null;
+            const container = document.getElementById('weekly-challenge-container');
+            if (container) container.innerHTML = '';
+            renderLeaderboardPanel();
+        }
+
+        window.addEventListener('online', () => tryFlushLeaderboardSync());
 
         // ============= PHASE 2: NLE PRACTICE QUESTIONS =============
         let currentPracticeSession = null;
